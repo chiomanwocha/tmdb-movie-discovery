@@ -44,7 +44,7 @@ const Navbar = ({
     <div
       className={`${
         scrolling ? 'bg-transparentBlack nav-blur' : 'bg-transparent'
-      } top-0 sticky flex flex-wrap items-center text-white justify-between py-3 px-12 lg:px-24 z-20 gap-2 md:gap-0`}
+      } top-0 sticky flex flex-wrap items-center text-white justify-between py-3 px-4 lg:px-24 z-20 gap-2 md:gap-0`}
     >
       <div>
         <Logo />

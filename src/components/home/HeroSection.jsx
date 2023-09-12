@@ -32,7 +32,7 @@ const HeroSection = ({ data }) => {
         {swipeData?.map((item) => (
           <SwiperSlide key={item?.id}>
             <div className="relative">
-              <div className="h-[90vh] relative z-10 px-12 lg:px-24 text-white flex items-center">
+              <div className="h-[90vh] relative z-10 px-8 lg:px-24 text-white flex items-center">
                 <div
                   className={
                     'absolute inset-0 bg-no-repeat bg-cover brightness-[30%]'
