@@ -41,14 +41,21 @@ const MovieCard = ({
           <p className="bg-gray-900 px-2 py-1 rounded-2xl font-bold text-xs flex items-center">
             TV SERIES
           </p>
-          <Favorite onClick={(e) => { e.stopPropagation(); setIsLiked(!isLiked) }} isLiked={isLiked} />
+          <Favorite
+            onClick={(e) => {
+              e.stopPropagation()
+              setIsLiked(!isLiked)
+            }}
+            isLiked={isLiked}
+          />
         </div>
       </div>
       <div className="w-full flex flex-col gap-3 mt-3">
-        <p
-          className="text-gray-400 font-bold text-xs uppercase"
-        >
-          {originalLang ?? ''}, <span data-testid="movie-release-date">{convertToUTC(releaseDate)}</span>
+        <p className="text-gray-400 font-bold text-xs uppercase">
+          {originalLang ?? ''},{' '}
+          <span data-testid="movie-release-date">
+            {convertToUTC(releaseDate)}
+          </span>
         </p>
         <p className="font-bold text-lg" data-testid="movie-title">
           {name}
@@ -68,13 +75,7 @@ const MovieCard = ({
               ? (
               <p className="text-gray-400 font-bold text-xs">
                 {genreId?.map((item, index) => (
-                  <span key={item}>
-                    {getGenreName(data, item)}
-                    {genreId.length - 1 !== index &&
-                    typeof getGenreName(item) === 'string'
-                      ? '. '
-                      : ''}
-                  </span>
+                  <span key={item}>{getGenreName(data, item) ?? 'Unknown'}{genreId?.length - 1 !== index ? ', ' : null}</span>
                 ))}
               </p>
                 )
