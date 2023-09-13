@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import imdbRatingIcon from '../../../assets/svgs/imdb-rating.svg'
-// import rottenTomatoes from '../../../assets/svgs/rotten-tomatoes.svg'
+import rottenTomatoes from '../../../assets/svgs/rotten-tomatoes.svg'
 
 const Ratings = ({ imdbRating, className }) => {
   function roundToTwoDecimalPlaces (number) {
@@ -14,10 +14,10 @@ const Ratings = ({ imdbRating, className }) => {
         <img src={imdbRatingIcon} alt="imdb movie rating icon" />
         <p>{roundToTwoDecimalPlaces(imdbRating)}/100</p>
       </div>
-      {/* <div className="flex gap-2 flex-wrap">
+      <div className="flex gap-2 flex-wrap">
         <img src={rottenTomatoes} alt="rotten tomatoes rating icon" />
         <p>97%</p>
-      </div> */}
+      </div>
     </div>
   )
 }

@@ -54,7 +54,7 @@ const Navbar = ({
           <input
             type="text"
             placeholder="What do you want to watch?"
-            className="w-full outline-none focus-none bg-transparent placeholder:text-white text-white"
+            className="w-full placeholder:text-gray-400 placeholder:opacity-75  outline-none focus-none bg-transparent text-white"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />

@@ -5,21 +5,17 @@ import star from '../../assets/svgs/icons/Star.svg'
 import ticket from '../../assets/svgs/icons/Two Tickets.svg'
 import list from '../../assets/svgs/icons/List.svg'
 import latestMovie from '../../assets/images/Group 52.png'
+import { convertToUTC } from '../../libs/convertToUTC'
+import { backgroundImageUrl } from '../../libs/getBackgroundImageUrl'
 
 const DetailsComp = ({ data }) => {
-  const backgroundImageUrl = () => {
-    return `https://image.tmdb.org/t/p/original${
-      data?.backdrop_path ?? data?.backdrop_path
-    }`
-  }
-
   return (
     <div className="text-black p-9 overflow-y-scroll max-h-[100vh]">
       <div className="relative h-[50vh] w-full rounded-xl overflow-hidden">
         <div
           className="bg-cover h-full w-full absolute top-0 left-0 z-0 brightness-[50%] transition-transform hover:brightness-[70%]"
           style={{
-            backgroundImage: `url(${backgroundImageUrl()})`
+            backgroundImage: `url(${backgroundImageUrl(data, 'movie-details')})`
           }}
         ></div>
         <div className="z-10 flex h-full flex-col justify-center items-center text-center text-white relative float">
@@ -35,7 +31,7 @@ const DetailsComp = ({ data }) => {
           <div className="flex gap-4 flex-wrap">
             <p className="text-[23px]">
               <span data-testid="movie-title">{data?.title}</span> •{' '}
-              <span data-testid="movie-release-date">{data?.release_date}</span>{' '}
+              <span data-testid="movie-release-date">{convertToUTC(data?.release_date)}</span>{' '}
               {data?.adult ? <span>• PG-13</span> : null} •{' '}
               <span data-testid="movie-runtime">{data?.runtime}</span>
             </p>

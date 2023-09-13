@@ -8,7 +8,7 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 
 const HeroSection = ({ data }) => {
-  const swipeData = data?.results?.filter((_item, index) => index < 5)
+  const swipeData = data?.results
   const backgroundImageUrl = (item) => {
     return `https://image.tmdb.org/t/p/original${
       item?.backdrop_path ?? item?.backdrop_path
@@ -38,7 +38,7 @@ const HeroSection = ({ data }) => {
                     'absolute inset-0 bg-no-repeat bg-cover brightness-[30%]'
                   }
                   style={{
-                    backgroundImage: `url(${backgroundImageUrl(item)})`
+                    backgroundImage: `url(${backgroundImageUrl(item, 'hero-section')})`
                   }}
                 ></div>
                 <div className="md:max-w-[60vw] lg:max-w-[30vw] z-10 flex pt-10 flex-col gap-4">
