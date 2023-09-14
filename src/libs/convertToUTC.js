@@ -1,11 +1,10 @@
 export function convertToUTC (dateString) {
-  const dateParts = dateString?.split('-')
-  const year = parseInt(dateParts[0])
-  const month = parseInt(dateParts[1]) - 1
-  const day = parseInt(dateParts[2])
-  const date = new Date(Date.UTC(year, month, day))
+  const dateParts = dateString.split('-')
+  const year = parseInt(dateParts[0], 10)
+  const month = parseInt(dateParts[1], 10) - 1
+  const day = parseInt(dateParts[2], 10)
 
-  const utcString = date.toISOString()
+  const dateObject = new Date(Date.UTC(year, month, day))
 
-  return utcString
+  return (dateObject.toUTCString())
 }

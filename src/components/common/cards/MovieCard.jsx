@@ -30,11 +30,12 @@ const MovieCard = ({
       onClick={() => navigate(`/movies/${id}`)}
     >
       <div className="relative">
-        <div className="h-[370px]" data-testid="movie-poster">
+        <div className="h-[370px]">
           <img
             src={imageUrl}
             alt={`${name} movie poster`}
             className="w-full h-full object-cover overflow-hidden"
+            data-testid="movie-poster"
           />
         </div>
         <div className="absolute top-0 p-4 flex justify-between w-full">
@@ -50,7 +51,7 @@ const MovieCard = ({
           />
         </div>
       </div>
-      <div className="w-full flex flex-col gap-3 mt-3">
+      <div className="w-full flex flex-col lg:gap-3 mt-3">
         <p className="text-gray-400 font-bold text-xs uppercase">
           {originalLang ?? ''},{' '}
           <span data-testid="movie-release-date">
@@ -75,7 +76,10 @@ const MovieCard = ({
               ? (
               <p className="text-gray-400 font-bold text-xs">
                 {genreId?.map((item, index) => (
-                  <span key={item}>{getGenreName(data, item) ?? 'Unknown'}{genreId?.length - 1 !== index ? ', ' : null}</span>
+                  <span key={item}>
+                    {getGenreName(data, item) ?? 'Unknown'}
+                    {genreId?.length - 1 !== index ? ', ' : null}
+                  </span>
                 ))}
               </p>
                 )

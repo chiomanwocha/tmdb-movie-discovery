@@ -10,7 +10,7 @@ import { backgroundImageUrl } from '../../libs/getBackgroundImageUrl'
 
 const DetailsComp = ({ data }) => {
   return (
-    <div className="text-black p-9 overflow-y-scroll max-h-[100vh]">
+    <div className="text-black p-9 overflow-y-scroll lg:max-h-[100vh]">
       <div className="relative h-[50vh] w-full rounded-xl overflow-hidden">
         <div
           className="bg-cover h-full w-full absolute top-0 left-0 z-0 brightness-[50%] transition-transform hover:brightness-[70%]"
