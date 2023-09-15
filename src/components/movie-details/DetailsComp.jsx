@@ -1,21 +1,29 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
+import React, { useState } from 'react'
 import play from '../../assets/svgs/icons/play.svg'
 import star from '../../assets/svgs/icons/Star.svg'
-import ticket from '../../assets/svgs/icons/Two Tickets.svg'
-import list from '../../assets/svgs/icons/List.svg'
 import latestMovie from '../../assets/images/Group 52.png'
 import { convertToUTC } from '../../libs/convertToUTC'
 import { backgroundImageUrl } from '../../libs/getBackgroundImageUrl'
+import useComponentData from './useComponentData'
 
-const DetailsComp = ({ data }) => {
+const DetailsComp = ({ data, stars, directors, writers }) => {
+  const { displayItems, creditsData, buttonObj } = useComponentData(
+    directors,
+    writers,
+    stars
+  )
+  const [showMore, setShowMore] = useState(false)
   return (
     <div className="text-black p-9 overflow-y-scroll lg:max-h-[100vh]">
       <div className="relative h-[50vh] w-full rounded-xl overflow-hidden">
         <div
           className="bg-cover h-full w-full absolute top-0 left-0 z-0 brightness-[50%] transition-transform hover:brightness-[70%]"
           style={{
-            backgroundImage: `url(${backgroundImageUrl(data, 'movie-details')})`
+            backgroundImage: `url(${backgroundImageUrl(
+              data,
+              'movie-details'
+            )})`
           }}
         ></div>
         <div className="z-10 flex h-full flex-col justify-center items-center text-center text-white relative float">
@@ -31,7 +39,9 @@ const DetailsComp = ({ data }) => {
           <div className="flex gap-4 flex-wrap">
             <p className="text-[23px]">
               <span data-testid="movie-title">{data?.title}</span> •{' '}
-              <span data-testid="movie-release-date">{convertToUTC(data?.release_date)}</span>{' '}
+              <span data-testid="movie-release-date">
+                {convertToUTC(data?.release_date)}
+              </span>{' '}
               {data?.adult ? <span>• PG-13</span> : null} •{' '}
               <span data-testid="movie-runtime">{data?.runtime}</span>
             </p>
@@ -66,19 +76,33 @@ const DetailsComp = ({ data }) => {
             {data?.overview}
           </p>
           <div className="text-[20px] flex flex-col gap-7 mb-7">
-            {[
-              { title: 'Director', value: 'Joseph Kosinski' },
-              {
-                title: 'Writers',
-                value: 'Jim Cash, Jack Epps Jr, Peter Craig'
-              },
-              {
-                title: 'Stars',
-                value: 'Tom Cruise, Jennifer Connelly, Miles Teller'
-              }
-            ].map((item) => (
+            {creditsData?.map((item) => (
               <p key={item?.title}>
-                {item?.title} : <span className="text-rose">{item?.value}</span>
+                {item?.title} : {''}
+                {item?.title !== 'Stars'
+                  ? (
+                  <>{displayItems(item?.value)}</>
+                    )
+                  : (
+                  <>
+                    {showMore
+                      ? (
+                      <>
+                        {displayItems(item?.value, true, setShowMore, showMore)}
+                      </>
+                        )
+                      : (
+                      <>
+                        {displayItems(
+                          item?.value?.filter((_item, index) => index <= 2),
+                          true,
+                          setShowMore,
+                          showMore
+                        )}
+                      </>
+                        )}
+                  </>
+                    )}
               </p>
             ))}
           </div>
@@ -106,14 +130,19 @@ const DetailsComp = ({ data }) => {
             </div>
           </div>
           <div className="flex flex-col gap-4 mb-8">
-            <div className="text-white bg-rose cursor-pointer hover:scale-105 rounded-[10px] py-4 w-full flex justify-center items-center gap-2 text-[20px] font-[500]">
-              <img src={ticket} alt="two ticket icons" />
-              <p>See Showtimes</p>
-            </div>
-            <div className="text-[#333] bg-lightRose cursor-pointer hover:scale-105 rounded-[10px] py-4 w-full flex justify-center items-center gap-2 text-[20px] font-[500] border-rose border-[1px]">
-              <img src={list} alt="list icons" />
-              <p>More watch options</p>
-            </div>
+            {buttonObj?.map((item) => (
+              <div
+                key={item?.title}
+                className={`${
+                  item?.title === 'See Showtimes'
+                    ? 'text-white bg-rose border-transparent'
+                    : 'text-[#333] bg-lightRose border-rose'
+                } border-[1px] cursor-pointer hover:scale-105 rounded-[10px] py-4 w-full flex justify-center items-center gap-2 text-[20px] font-[500]`}
+              >
+                <img src={item?.icon} alt={`${item?.title} icon`} />
+                <p>{item?.title}</p>
+              </div>
+            ))}
           </div>
           <div className="flex justify-center">
             <img src={latestMovie} alt="list of latest movie" />
